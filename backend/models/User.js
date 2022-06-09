@@ -15,7 +15,11 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-  }
+  },
+  tasks: [{
+    type: Schema.Types.ObjectId,
+    ref: "Task",
+  }]
 });
 
 export default mongoose.model("User", userSchema);

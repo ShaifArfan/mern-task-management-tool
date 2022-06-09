@@ -1,13 +1,10 @@
 import User from "../models/User.js";
-import { createError } from "../utils/error.js";
-import getUserData from "../utils/getUserData.js";
 
 export const createUser = async (req, res, next) => {
   try{
     const user = new User(req.body);
-    const newUser = await user.save();
-    const newUserData = getUserData(newUser);
-    res.status(201).json(newUserData);
+    const newUser = await user.save().select('name user');
+    res.status(201).json(newUser);
   }catch(err){
     next(err);
   }
@@ -15,36 +12,35 @@ export const createUser = async (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
   try{
-    const users = await User.find();
-    const usersData = users.map(user => {
-      return getUserData(user)
-    })
-    res.status(200).json(usersData);
+    const users = await User.find().select('name email');
+    res.status(200).json(users);
   }catch(err){
     next(err);
   }
 }
 
 export const getUser = async (req, res, next) => {
-  if(!req.params.userId || req.params.userId !== req.user.id){
-    return next(createError({ status: 401, message: "Invalid User Id" }));
-  }
   try{
-    const user = await User.findById(req.params.userId);
-    const userData= getUserData(user);
-    res.status(200).json(userData);
+    const user = await User.findById(req.user.id).select("name email");
+    res.status(200).json(user);
   }catch(err){
     next(err);
   }
 }
 
 export const updateUser = async (req, res, next) => {
-  if(!req.params.userId || req.params.userId !== req.user.id){
-    return next(createError({ status: 401, message: "Invalid User Id" }));
-  }
   try{
-    const updatedUser = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true });
-    res.status(200).json(getUserData(updatedUser));
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true }).select('name email');
+    res.status(200).json(updatedUser);
+  }catch(err){
+    next(err);
+  }
+}
+
+export const getUserTasks = async (req, res, next) => {
+  try{
+    const data = await User.findById(req.user.id).select('name email tasks').populate("tasks");
+    res.status(200).json(data);
   }catch(err){
     next(err);
   }
