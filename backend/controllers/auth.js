@@ -52,3 +52,22 @@ export const register = async (req, res, next) => {
     next(err);
   }
 }
+
+export const logout = async (req, res, next) => {
+  res.clearCookie('access_token');
+  res.status(200).json({message: 'logout success'});
+}
+
+export const isLoggedIn = async (req, res, next) => {
+  const token = req.cookies.access_token;
+  if(!token) {
+    return res.json(false);
+  }
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if(err){
+      return res.json(false)
+    }else{
+      return res.json(true)
+    }
+  })
+}
