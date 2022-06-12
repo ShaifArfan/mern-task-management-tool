@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, getAllUsers, getUser, getUserTasks, updateUser } from "../controllers/users.js";
+import { getUser, getUserInfo, updateUser } from "../controllers/users.js";
 
 const router = express.Router();
 
@@ -7,11 +7,11 @@ const router = express.Router();
 // router.get('/', getAllUsers);
 // router.post('/', createUser);
 
-router.get('/tasks/', getUserTasks);
+router.get('/me/info/', getUserInfo);
 
-router.get('/', getUser);
+router.get('/me', getUser);
 
-router.put('/', updateUser);
+router.put('/me', updateUser);
 
 
 export default router;

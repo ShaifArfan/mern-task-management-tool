@@ -1,5 +1,6 @@
 import Task from "../models/Task.js";
 import User from "../models/User.js";
+import { createError } from "../utils/error.js";
 
 export const createTask = async (req, res, next) => {
   const newTask = new Task(req.body);
@@ -14,7 +15,14 @@ export const createTask = async (req, res, next) => {
 
 export const updateTask = async (req, res, next) => {
   try{
-    const updatedTask = await Task.findByIdAndUpdate(req.task.id, req.body, { new: true});
+    const task = await Task.findById( req.params.taskId).exec();
+    if(!task) return next(createError({ status: 404, message: "Task not found" }));
+    if(task.user.toString() !== req.user.id) return next(createError({ status: 401, message: "It's not your todo." }));
+
+    const updatedTask = await Task.findByIdAndUpdate(req.params.taskId, {
+      title: req.body.title,
+      completed: req.body.completed
+    }, { new: true});
     res.status(200).json(updatedTask);
   }catch(err){
     next(err);
@@ -30,9 +38,9 @@ export const getAllTasks = async (req, res, next) => {
   }
 }
 
-export const getTasksByUserId = async (req, res, next) => {
+export const getCurrentUserTasks = async (req, res, next) => {
   try{
-    const tasks = await Task.find({ user: req.user.id });
+    const tasks = await Task.find({ user: req.user.id});
     res.status(200).json(tasks);
   }catch(err){
     next(err);

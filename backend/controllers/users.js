@@ -37,7 +37,7 @@ export const updateUser = async (req, res, next) => {
   }
 }
 
-export const getUserTasks = async (req, res, next) => {
+export const getUserInfo = async (req, res, next) => {
   try{
     const data = await User.findById(req.user.id).select('name email tasks').populate("tasks");
     res.status(200).json(data);
