@@ -3,10 +3,18 @@ import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
 function Auth() {
-  const {verifyAuth} = useAuth();
+  const {verifyAuth, auth} = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if(auth) {
+      navigate('/');
+    }
+  }, [auth])
+
   const login = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
