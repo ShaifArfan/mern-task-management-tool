@@ -1,0 +1,56 @@
+.topBar {
+	margin-top: 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem;
+	margin-bottom: 2rem;
+}
+.addNew {
+	display: inline-block;
+	background-color: #187f52;
+	padding: 1rem 2rem;
+	font-size: 1.8rem;
+	border: none;
+	color: white;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: 0.3s ease background-color, 0.3s ease color;
+	&:hover {
+		background-color: #156542;
+		color: rgb(205, 205, 205);
+	}
+}
+.addNewForm {
+	width: 100%;
+	display: flex;
+	gap: 1rem;
+	input {
+		width: 100%;
+		padding: 0.5rem;
+		border: none;
+		border-radius: 5px;
+		font-size: 1.8rem;
+		color: black;
+		padding: 1rem;
+		background-color: #bbbbbb;
+	}
+	button[type='submit'] {
+		background-color: #bbbbbb;
+		padding: 0.5rem 2rem;
+		font-size: 1.8rem;
+		border: none;
+		color: black;
+		border-radius: 6px;
+		cursor: pointer;
+		transition: 0.3s ease background-color, 0.3s ease color;
+		&:hover {
+			background-color: #156542;
+			color: rgb(205, 205, 205);
+		}
+	}
+}
+.taskList_table {
+	width: 100%;
+	margin-top: 2rem;
+}
