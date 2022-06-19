@@ -1,47 +1,58 @@
-import User from "../models/User.js";
+import User from '../models/User.js';
 
 export const createUser = async (req, res, next) => {
-  try{
+  try {
     const user = new User(req.body);
     const newUser = await user.save().select('name user');
     res.status(201).json(newUser);
-  }catch(err){
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const getAllUsers = async (req, res, next) => {
-  try{
+  try {
     const users = await User.find().select('name email');
     res.status(200).json(users);
-  }catch(err){
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const getUser = async (req, res, next) => {
-  try{
-    const user = await User.findById(req.user.id).select("name email");
+  try {
+    const user = await User.findById(req.user.id).select('name email');
     res.status(200).json(user);
-  }catch(err){
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const updateUser = async (req, res, next) => {
-  try{
-    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true }).select('name email');
+  try {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        name: req.body.name,
+        email: req.body.email,
+      },
+      {
+        new: true,
+      }
+    ).select('name email');
     res.status(200).json(updatedUser);
-  }catch(err){
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const getUserInfo = async (req, res, next) => {
-  try{
-    const data = await User.findById(req.user.id).select('name email tasks').populate("tasks");
+  try {
+    const data = await User.findById(req.user.id)
+      .select('name email tasks')
+      .populate('tasks');
     res.status(200).json(data);
-  }catch(err){
+  } catch (err) {
     next(err);
   }
-}
+};

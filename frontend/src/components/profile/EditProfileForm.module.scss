@@ -1,0 +1,29 @@
+.backBtn {
+	font-size: 2rem;
+	margin-bottom: 2rem;
+	display: block;
+	text-decoration: underline;
+}
+.editForm {
+	margin-top: 2rem;
+	width: 100%;
+	label {
+		width: 100%;
+		font-size: 2rem;
+	}
+	input {
+		font-size: 2rem;
+		width: 100%;
+		margin-bottom: 2rem;
+		margin-top: 0.5rem;
+		padding: 1rem;
+		border-radius: 6px;
+		border: none;
+		background-color: rgb(206, 206, 206);
+	}
+	button[type='submit'] {
+		font-size: 2rem;
+		padding: 0.5rem 1rem;
+		cursor: pointer;
+	}
+}

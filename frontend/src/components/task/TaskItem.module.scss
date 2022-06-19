@@ -2,7 +2,7 @@
 	background-color: rgba(128, 128, 128, 0.174);
 	margin-top: 0.5rem;
 	border-radius: 6px;
-	font-size: 1.8rem;
+	font-size: 1.5rem;
 	&:hover {
 		background-color: rgba(95, 95, 95, 0.2);
 	}
@@ -14,7 +14,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
-		gap: 1rem;
+		gap: 0.5rem;
 		.checkbox {
 			width: 3rem;
 			height: 3rem;

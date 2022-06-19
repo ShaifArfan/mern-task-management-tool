@@ -3,9 +3,10 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
 import { useEffect } from 'react';
-// import TaskList from '../components/TaskList';
-import {Navbar, TaskList} from '../components';
 import Layout from '../components/Layout';
+import Navbar from '../components/nav/Navbar';
+import TaskList from '../components/task/TaskList';
+
 
 function Home() {
   const [userData, setUserData] = useState();
