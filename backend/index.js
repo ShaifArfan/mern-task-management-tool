@@ -12,8 +12,9 @@ const PORT = process.env.PORT || 8000;
 // middleware
 app.use(
   cors({
+    origin: 'http://localhost:3000',
     credentials: true,
-    accessControlAllowOrigin: 'http://localhost:3000/',
+    accessControlAllowOrigin: 'http://localhost:3000',
   })
 );
 app.use(morgan('tiny'));
