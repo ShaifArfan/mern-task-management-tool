@@ -5,7 +5,6 @@ import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/Auth';
 import classes from './Navbar.module.scss';
-import getApiBaseUrl from '../../utils/getApiBaseUrl';
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -13,7 +12,7 @@ export default function Navbar() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`${getApiBaseUrl()}/api/users/me`);
+      const { data } = await axios.get(`/api/users/me`);
       setUser(data);
     } catch (err) {
       console.log(err);
@@ -26,7 +25,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get(`${getApiBaseUrl()}/api/auth/logout`);
+      await axios.get(`/api/auth/logout`);
       setUser(null);
       verifyAuth();
       toast.success('Logged out successfully');

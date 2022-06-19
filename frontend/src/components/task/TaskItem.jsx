@@ -3,7 +3,6 @@ import moment from 'moment';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import classes from './TaskItem.module.scss';
-import getApiBaseUrl from '../../utils/getApiBaseUrl';
 
 function TaskItem({ task, deleteTask }) {
   const [isCompleted, setIsCompleted] = useState(task.completed);
@@ -12,7 +11,7 @@ function TaskItem({ task, deleteTask }) {
   const handleCheckboxClick = async () => {
     try {
       setIsLoading(true);
-      await axios.put(`${getApiBaseUrl()}/api/tasks/${task._id}`, {
+      await axios.put(`/api/tasks/${task._id}`, {
         completed: !isCompleted,
       });
       setIsCompleted(!isCompleted);

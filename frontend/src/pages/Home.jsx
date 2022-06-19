@@ -5,7 +5,6 @@ import useAuth from '../hooks/useAuth';
 import Layout from '../components/Layout';
 import Navbar from '../components/nav/Navbar';
 import TaskList from '../components/task/TaskList';
-import getApiBaseUrl from '../utils/getApiBaseUrl';
 
 function Home() {
   const [userData, setUserData] = useState();
@@ -17,7 +16,7 @@ function Home() {
 
   const getUserInfo = async () => {
     try {
-      const { data } = await axios.get(`${getApiBaseUrl()}/api/users/me/info`);
+      const { data } = await axios.get(`/api/users/me/info`);
       setUserData(data);
     } catch (err) {
       if (err.status === 401) {

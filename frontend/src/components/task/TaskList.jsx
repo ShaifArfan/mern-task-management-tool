@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 import toast from 'react-hot-toast';
-import getApiBaseUrl from '../../utils/getApiBaseUrl';
+
 import TaskItem from './TaskItem';
 import classes from './TaskList.module.scss';
 
@@ -13,7 +13,7 @@ function TaskList() {
 
   const getTasks = async () => {
     try {
-      const { data } = await axios.get(`${getApiBaseUrl()}/api/tasks/mytasks`);
+      const { data } = await axios.get(`/api/tasks/mytasks`);
       setTaskList(
         data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
       );
@@ -37,7 +37,7 @@ function TaskList() {
       return;
     }
     try {
-      const { data } = await axios.post(`${getApiBaseUrl()}/api/tasks/`, {
+      const { data } = await axios.post(`/api/tasks/`, {
         title: newTask,
       });
       toast.success('New task added');
