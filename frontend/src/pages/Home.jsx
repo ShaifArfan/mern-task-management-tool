@@ -1,46 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import useAuth from '../hooks/useAuth';
-import { useEffect } from 'react';
 import Layout from '../components/Layout';
 import Navbar from '../components/nav/Navbar';
 import TaskList from '../components/task/TaskList';
-
+import getApiBaseUrl from '../utils/getApiBaseUrl';
 
 function Home() {
   const [userData, setUserData] = useState();
-  const {verifyAuth} = useAuth();
-  const logout = async () => {
-    await axios.get('/api/auth/logout');
-    verifyAuth(); 
-  }
+  const { verifyAuth } = useAuth();
+  // const logout = async () => {
+  //   await axios.get('/api/auth/logout');
+  //   verifyAuth();
+  // };
 
   const getUserInfo = async () => {
-    try{
-      const {data} = await axios.get('/api/users/me/info');
+    try {
+      const { data } = await axios.get(`${getApiBaseUrl()}/api/users/me/info`);
       setUserData(data);
-    }catch(err){
-      if(err.status === 401){
+    } catch (err) {
+      if (err.status === 401) {
         checkAuth();
       }
       toast('we got error');
     }
-  }
+  };
 
-  useEffect( () => {
-    getUserInfo()
-  }, [])
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
-  if(!userData || !userData._id){
+  if (!userData || !userData._id) {
     return null;
   }
 
   return (
     <Layout>
-      <Navbar></Navbar>
-      <TaskList></TaskList>
+      <Navbar />
+      <TaskList />
     </Layout>
-  )
+  );
 }
-export default Home
+export default Home;
