@@ -12,9 +12,9 @@ const PORT = process.env.PORT || 8000;
 // middleware
 app.use(
   cors({
-    origin: 'http://mern-task-management-tool-tut.surge.sh/',
+    origin: 'http://mern-task-management-tool-tut.surge.sh',
     credentials: true,
-    accessControlAllowOrigin: 'http://mern-task-management-tool-tut.surge.sh/',
+    accessControlAllowOrigin: 'http://mern-task-management-tool-tut.surge.sh',
   })
 );
 app.use(morgan('tiny'));
