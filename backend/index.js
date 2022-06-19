@@ -12,7 +12,6 @@ const PORT = process.env.PORT || 8000;
 // middleware
 app.use(
   cors({
-    origin: '*',
     credentials: true,
   })
 );
