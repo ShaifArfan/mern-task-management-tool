@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 8000;
 app.use(
   cors({
     credentials: true,
+    accessControlAllowOrigin: 'http://localhost:3000/',
   })
 );
 app.use(morgan('tiny'));
