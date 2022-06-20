@@ -16,6 +16,7 @@ module.exports = {
   },
   rules: {
     // base rules
+    'no-underscore-dangle': 0,
     'no-alert': 0,
     'no-unused-vars': [
       1,
