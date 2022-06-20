@@ -8,13 +8,13 @@ import allRoutes from './routes/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
+const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000';
 
 // middleware
 app.use(
   cors({
-    origin: 'http://mern-task-management-tool-tut.surge.sh',
     credentials: true,
-    accessControlAllowOrigin: 'http://mern-task-management-tool-tut.surge.sh',
+    origin: CLIENT_URL,
   })
 );
 app.use(morgan('tiny'));
