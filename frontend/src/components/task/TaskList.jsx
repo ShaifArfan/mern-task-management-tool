@@ -53,7 +53,7 @@ function TaskList() {
     try {
       await axios.delete(`/api/tasks/${id}`);
       toast.success('Task deleted');
-      setTaskList(taskList.filter((task) => task._id !== id));
+      setTaskList(taskList.filter((task) => task.id !== id));
     } catch (err) {
       console.log(err);
     }
@@ -86,7 +86,7 @@ function TaskList() {
         <table className={classes.taskList_table}>
           <tbody>
             {taskList.map((task) => (
-              <TaskItem key={task._id} task={task} deleteTask={deleteTask} />
+              <TaskItem key={task.id} task={task} deleteTask={deleteTask} />
             ))}
           </tbody>
         </table>

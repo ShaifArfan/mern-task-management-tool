@@ -1,80 +1,86 @@
-import Task from "../models/Task.js";
-import User from "../models/User.js";
-import { createError } from "../utils/error.js";
+import db from '../db/index.js';
+import { createError } from '../utils/error.js';
 
 export const createTask = async (req, res, next) => {
-  const newTask = new Task({
-    title: req.body.title,
-    user: req.user.id,
-    completed: req.body.completed
-  });
-  try{
-    const savedTask = await newTask.save();
-    await User.findByIdAndUpdate(req.user.id, { $push: { tasks: savedTask._id } });
-    res.status(200).json(savedTask);
-  }catch(err){
+  try {
+    const result = await db.query(
+      'INSERT INTO tasks (title, userId) VALUES ($1, $2) RETURNING *',
+      [req.body.title, req.user.id]
+    );
+    res.status(200).json(result.rows[0]);
+  } catch (err) {
     next(err);
   }
-}
+};
+
+const getTask = async (id) => {
+  const result = await db.query('SELECT * FROM tasks WHERE id = $1', [id]);
+  return result.rows[0];
+};
 
 export const updateTask = async (req, res, next) => {
-  try{
-    const task = await Task.findById( req.params.taskId).exec();
-    if(!task) return next(createError({ status: 404, message: "Task not found" }));
-    if(task.user.toString() !== req.user.id) return next(createError({ status: 401, message: "It's not your todo." }));
-
-    const updatedTask = await Task.findByIdAndUpdate(req.params.taskId, {
-      title: req.body.title,
-      completed: req.body.completed
-    }, { new: true});
-    res.status(200).json(updatedTask);
-  }catch(err){
+  try {
+    const task = await getTask(req.params.taskId);
+    console.log(req.body);
+    const result = await db.query(
+      `UPDATE tasks SET
+        title = COALESCE(NULLIF($1, ''), '${task.title}'),
+        completed = COALESCE(NULLIF($2, '')::BOOLEAN, ${task.completed})
+      WHERE id = $3 AND userId = $4 RETURNING id, title, completed`,
+      [req.body.title, req.body.completed, req.params.taskId, req.user.id]
+    );
+    if (result.rowCount === 0) {
+      return res.status(404).json('Task not found');
+    }
+    res.status(200).json(result.rows[0]);
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const getAllTasks = async (req, res, next) => {
-  try{
-    const tasks = await Task.find({});
-    res.status(200).json(tasks);
-  }catch(err){
+  try {
+    // const tasks = await Task.find({});
+    const result = await db.query('SELECT * FROM tasks');
+    res.status(200).json(result.rows);
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const getCurrentUserTasks = async (req, res, next) => {
-  try{
-    const tasks = await Task.find({ user: req.user.id});
-    res.status(200).json(tasks);
-  }catch(err){
+  try {
+    const result = await db.query(
+      'SELECT id, title, completed FROM tasks WHERE userId = $1',
+      [req.user.id]
+    );
+    res.status(200).json(result.rows);
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const deleteTask = async (req, res, next) => {
-  try{
-    const task = await Task.findById(req.params.taskId);
-    if(task.user === req.user.id){
-      return next(createError({ status: 401, message: "It's not your todo." }));
+  try {
+    const result = await db.query(
+      'DELETE FROM tasks WHERE id = $1 AND userId = $2',
+      [req.params.taskId, req.user.id]
+    );
+    if (result.rowCount === 0) {
+      return next(createError({ status: 404, message: 'Task not found' }));
     }
-    const user = await User.findById(req.user.id);
-    await Task.findByIdAndDelete(req.params.taskId);
-    user.tasks.pull(req.params.taskId);
-    await user.save();
     res.json('Task Deleted Successfully');
-  }catch(err){
+  } catch (err) {
     next(err);
   }
-}
+};
 
 export const deleteAllTasks = async (req, res, next) => {
-  try{
-    const user = await User.findById(req.user.id);
-    await Task.deleteMany({ user: req.user.id });
-    user.tasks = [];
-    await user.save();
-    res.json('All Todo Deleted Successfully');
-  }catch(err){
+  try {
+    const result = await db.query('DELETE FROM tasks');
+    console.log(result);
+    res.json(`All Todo Deleted Successfully ${result.rowCount}`);
+  } catch (err) {
     next(err);
   }
-}
+};

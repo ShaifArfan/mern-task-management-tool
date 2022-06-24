@@ -1,27 +1,19 @@
-import User from '../models/User.js';
+import db from '../db/index.js';
 
-export const createUser = async (req, res, next) => {
-  try {
-    const user = new User(req.body);
-    const newUser = await user.save().select('name user');
-    res.status(201).json(newUser);
-  } catch (err) {
-    next(err);
-  }
-};
-
-export const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.find().select('name email');
-    res.status(200).json(users);
-  } catch (err) {
-    next(err);
-  }
+const getCurrentUser = async (id) => {
+  const result = await db.query(`SELECT * FROM user_accounts WHERE id = $1`, [
+    id,
+  ]);
+  return result.rows[0];
 };
 
 export const getUser = async (req, res, next) => {
   try {
-    const user = await User.findById(req.user.id).select('name email');
+    const result = await db.query(
+      'SELECT id, name, email FROM user_accounts WHERE id = $1',
+      [req.user.id]
+    );
+    const user = result.rows[0];
     res.status(200).json(user);
   } catch (err) {
     next(err);
@@ -30,17 +22,16 @@ export const getUser = async (req, res, next) => {
 
 export const updateUser = async (req, res, next) => {
   try {
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
-      {
-        name: req.body.name,
-        email: req.body.email,
-      },
-      {
-        new: true,
-      }
-    ).select('name email');
-    res.status(200).json(updatedUser);
+    const currentUser = await getCurrentUser(req.user.id);
+    const result = await db.query(
+      `UPDATE user_accounts SET
+        name = COALESCE(NULLIF($1, ''), '${currentUser.name}'),
+        email = COALESCE(NULLIF($2, ''), '${currentUser.email}')
+      WHERE id = $3 RETURNING name, email`,
+      [req.body.name, req.body.email, req.user.id]
+    );
+    console.log(result);
+    res.status(200).json(result.rows[0]);
   } catch (err) {
     next(err);
   }
@@ -48,10 +39,13 @@ export const updateUser = async (req, res, next) => {
 
 export const getUserInfo = async (req, res, next) => {
   try {
-    const data = await User.findById(req.user.id)
-      .select('name email tasks')
-      .populate('tasks');
-    res.status(200).json(data);
+    const data = await db.query(
+      'SELECT id, name, email FROM user_accounts WHERE id = $1',
+      [req.user.id]
+    );
+    const user = data.rows[0];
+    console.log(req.user);
+    res.status(200).json(user);
   } catch (err) {
     next(err);
   }

@@ -1,6 +1,5 @@
 import express from 'express';
 import 'dotenv/config';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
@@ -43,17 +42,6 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message, stack: err.stack });
 });
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect(process.env.DB_CONNECTION_STRING);
-    console.log('MongoDB Connected');
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-};
-
 app.listen(PORT, () => {
-  connectDB();
   console.log(`Server is running on port ${PORT}`);
 });

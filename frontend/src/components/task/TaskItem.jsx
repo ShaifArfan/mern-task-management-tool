@@ -11,7 +11,7 @@ function TaskItem({ task, deleteTask }) {
   const handleCheckboxClick = async () => {
     try {
       setIsLoading(true);
-      await axios.put(`/api/tasks/${task._id}`, {
+      await axios.put(`/api/tasks/${task.id}`, {
         completed: !isCompleted,
       });
       setIsCompleted(!isCompleted);
@@ -37,7 +37,7 @@ function TaskItem({ task, deleteTask }) {
         <button
           type="button"
           className={classes.deleteBtn}
-          onClick={() => deleteTask(task._id)}
+          onClick={() => deleteTask(task.id)}
         >
           Delete
         </button>

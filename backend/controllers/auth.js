@@ -1,6 +1,7 @@
 import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+import db from '../db/index.js';
+// import User from '../models/User.js';
 import { createError } from '../utils/error.js';
 
 export const login = async (req, res, next) => {
@@ -14,9 +15,11 @@ export const login = async (req, res, next) => {
   }
 
   try {
-    const user = await User.findOne({ email: req.body.email }).select(
-      'name email password'
+    const result = await db.query(
+      'SELECT * FROM user_accounts WHERE email = $1',
+      [req.body.email]
     );
+    const user = result.rows[0];
     if (!user) {
       return next(
         createError({ status: 404, message: 'User not found with the email' })
@@ -32,7 +35,7 @@ export const login = async (req, res, next) => {
       );
     }
     const payload = {
-      id: user._id,
+      id: user.id,
       name: user.name,
     };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
@@ -64,14 +67,11 @@ export const register = async (req, res, next) => {
   try {
     const salt = await bcryptjs.genSalt(10);
     const hashedPassword = await bcryptjs.hash(req.body.password, salt);
-
-    const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword,
-    });
-
-    await newUser.save();
+    await db.query(
+      'INSERT INTO user_accounts(name, email, password) VALUES($1, $2, $3)',
+      [req.body.name, req.body.email, hashedPassword]
+    );
+    // console.log(newUser);
     res.status(201).json('New User Created');
   } catch (err) {
     next(err);

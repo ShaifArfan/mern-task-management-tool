@@ -19,9 +19,6 @@ function Home() {
       const { data } = await axios.get(`/api/users/me/info`);
       setUserData(data);
     } catch (err) {
-      if (err.status === 401) {
-        checkAuth();
-      }
       toast('we got error');
     }
   };
@@ -30,7 +27,7 @@ function Home() {
     getUserInfo();
   }, []);
 
-  if (!userData || !userData._id) {
+  if (!userData || !userData.id) {
     return null;
   }
 
