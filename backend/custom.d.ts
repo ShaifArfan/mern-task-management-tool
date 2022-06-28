@@ -1,8 +1,10 @@
 declare namespace Express {
 	export interface Request {
-		user?: {
-			id: number;
-			name: string;
-		};
+		user?: JwtUserPayload;
 	}
 }
+
+type JwtUserPayload = {
+	id: number;
+	name: string;
+};

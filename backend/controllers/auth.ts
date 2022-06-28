@@ -41,11 +41,7 @@ export const login = async (
 				createError({ statusCode: 400, message: 'Password is incorrect' })
 			);
 		}
-		interface JWTPayload {
-			id: number;
-			name: string;
-		}
-		const payload: JWTPayload = {
+		const payload: JwtUserPayload = {
 			id: user.id,
 			name: user.name,
 		};

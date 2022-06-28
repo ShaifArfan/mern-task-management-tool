@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import { JwtUserPayload } from 'types.js';
 import { createError } from './error.js';
 
 export const checkAuth = async (
