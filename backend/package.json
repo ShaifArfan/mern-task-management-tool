@@ -20,9 +20,7 @@
 		"express": "^4.18.1",
 		"jsonwebtoken": "^8.5.1",
 		"morgan": "^1.10.0",
-		"pg": "^8.7.3",
-		"tsconfig.json": "^1.0.11",
-		"typescript": "^4.7.4"
+		"pg": "^8.7.3"
 	},
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",
@@ -31,6 +29,7 @@
 		"@types/express": "^4.17.13",
 		"@types/jsonwebtoken": "^8.5.8",
 		"@types/pg": "^8.6.5",
-		"nodemon": "^2.0.16"
+		"nodemon": "^2.0.16",
+		"typescript": "^4.7.4"
 	}
 }

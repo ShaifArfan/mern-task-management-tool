@@ -10,12 +10,13 @@ import getApiBaseUrl from './utils/getApiBaseUrl';
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = getApiBaseUrl();
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </AuthProvider>
-  </React.StrictMode>
+const rootEl = document.getElementById('root')!;
+ReactDOM.createRoot(rootEl).render(
+	<React.StrictMode>
+		<AuthProvider>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</AuthProvider>
+	</React.StrictMode>
 );
