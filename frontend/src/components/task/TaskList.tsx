@@ -2,15 +2,8 @@ import axios from 'axios';
 import { useState, useEffect, FormEvent } from 'react';
 
 import toast from 'react-hot-toast';
-import TaskItem from './TaskItem';
+import TaskItem, { Task } from './TaskItem';
 import classes from './TaskList.module.scss';
-
-interface Task {
-	id: number;
-	title: string;
-	completed: boolean;
-	createdAt: string;
-}
 
 function TaskList() {
 	const [taskList, setTaskList] = useState<Task[]>([]);

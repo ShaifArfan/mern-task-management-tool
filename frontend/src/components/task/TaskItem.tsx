@@ -4,11 +4,10 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import classes from './TaskItem.module.scss';
 
-interface Task {
+export interface Task {
 	id: number;
 	title: string;
 	completed: boolean;
-	createdAt: string;
 }
 
 interface TaskItemProps {
@@ -49,7 +48,8 @@ function TaskItem({ task, deleteTask }: TaskItemProps) {
 				<p>{task.title}</p>
 			</td>
 			<td>{isCompleted ? 'Complete' : 'Incomplete'}</td>
-			<td>{moment(task.createdAt).format('MMM Do YY')}</td>
+			{/* forgot to add created at column */}
+			<td>{moment().format('MMM Do YY')}</td>
 			<td>
 				<button
 					type="button"
