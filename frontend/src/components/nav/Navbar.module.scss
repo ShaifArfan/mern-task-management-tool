@@ -1,0 +1,45 @@
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 1rem;
+}
+.userInfo {
+	display: flex;
+	.userIcon {
+		width: 60px;
+		height: 100%;
+		border-radius: 50%;
+		padding: 0.5rem;
+		background-color: #e6e6e6;
+		margin-right: 0.5rem;
+	}
+	.name {
+		font-size: 3rem;
+	}
+	.email {
+		font-size: 1.8rem;
+	}
+}
+.logout {
+	display: inline-block;
+	background-color: crimson;
+	padding: 1rem 2rem;
+	font-size: 1.8rem;
+	border: none;
+	color: white;
+	border-radius: 50px;
+	cursor: pointer;
+	transition: 0.3s ease background-color, 0.3s ease color;
+	&:hover {
+		background-color: rgb(142, 13, 39);
+		color: rgb(205, 205, 205);
+	}
+}
+.editBtn {
+	display: inline-block;
+	text-decoration: underline;
+	margin-top: 1rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+}
