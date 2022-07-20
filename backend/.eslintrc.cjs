@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     'import/extensions': 0,
     'no-console': 0,
+    'no-underscore-dangle': 0,
   },
 };

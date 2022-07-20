@@ -13,9 +13,9 @@ function TaskList() {
 
   const getTasks = async () => {
     try {
-      const { data } = await axios.get(`/api/tasks/mytasks`);
+      const { data } = await axios.get('/api/tasks/mytasks');
       setTaskList(
-        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
       );
     } catch (err) {
       console.log(err);
@@ -37,7 +37,7 @@ function TaskList() {
       return;
     }
     try {
-      const { data } = await axios.post(`/api/tasks/`, {
+      const { data } = await axios.post('/api/tasks/', {
         title: newTask,
       });
       toast.success('New task added');
