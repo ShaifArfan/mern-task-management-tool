@@ -8,10 +8,6 @@ import allRoutes from './routes/index.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
-const CLIENT_URL_STRING = process.env.CLIENT_URL || 'http://localhost:3000';
-
-const allowedDomains = CLIENT_URL_STRING.split(', ');
-console.log(allowedDomains);
 
 // middleware
 app.use(cors());
@@ -26,7 +22,7 @@ app.use('/api', allRoutes);
 app.use((err, req, res) => {
   const status = err.statusCode || 500;
   const message = err.message || 'Internal Server Error';
-  res.status(status).json({ message, stack: err.stack });
+  return res.status(status).json({ message, stack: err.stack });
 });
 
 const connectDB = async () => {

@@ -9,26 +9,26 @@ export const login = async (req, res, next) => {
       createError({
         message: 'Email and password are required',
         statusCode: 400,
-      })
+      }),
     );
   }
 
   try {
     const user = await User.findOne({ email: req.body.email }).select(
-      'name email password'
+      'name email password',
     );
     if (!user) {
       return next(
-        createError({ status: 404, message: 'User not found with the email' })
+        createError({ status: 404, message: 'User not found with the email' }),
       );
     }
     const isPasswordCorrect = await bcryptjs.compare(
       req.body.password,
-      user.password
+      user.password,
     );
     if (!isPasswordCorrect) {
       return next(
-        createError({ status: 400, message: 'Password is incorrect' })
+        createError({ status: 400, message: 'Password is incorrect' }),
       );
     }
     const payload = {
@@ -38,14 +38,14 @@ export const login = async (req, res, next) => {
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: '1d',
     });
-    res
+    return res
       .cookie('access_token', token, {
         httpOnly: true,
       })
       .status(200)
       .json({ name: user.name, email: user.email, message: 'login success' });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
 
@@ -55,7 +55,7 @@ export const register = async (req, res, next) => {
       createError({
         message: 'Name, Email & password are required',
         statusCode: 400,
-      })
+      }),
     );
   }
 
@@ -70,23 +70,23 @@ export const register = async (req, res, next) => {
     });
 
     await newUser.save();
-    res.status(201).json('New User Created');
+    return res.status(201).json('New User Created');
   } catch (err) {
-    next(err);
+    return next(err);
   }
 };
 
-export const logout = async (req, res, next) => {
+export const logout = async (req, res) => {
   res.clearCookie('access_token');
-  res.status(200).json({ message: 'logout success' });
+  return res.status(200).json({ message: 'logout success' });
 };
 
-export const isLoggedIn = async (req, res, next) => {
+export const isLoggedIn = async (req, res) => {
   const token = req.cookies.access_token;
   if (!token) {
     return res.json(false);
   }
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  return jwt.verify(token, process.env.JWT_SECRET, (err) => {
     if (err) {
       return res.json(false);
     }

@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
@@ -16,10 +16,6 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  tasks: [{
-    type: Schema.Types.ObjectId,
-    ref: "Task",
-  }]
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.model('User', userSchema);
