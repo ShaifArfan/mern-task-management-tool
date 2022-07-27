@@ -1,6 +1,6 @@
 import Task from '../models/Task.js';
 import User from '../models/User.js';
-import { createError } from '../utils/error.js';
+import createError from '../utils/createError.js';
 
 export const createTask = async (req, res, next) => {
   const newTask = new Task({
