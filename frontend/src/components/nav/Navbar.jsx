@@ -12,7 +12,7 @@ export default function Navbar() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`/api/users/me`);
+      const { data } = await axios.get('/api/users/me');
       setUser(data);
     } catch (err) {
       console.log(err);
@@ -25,7 +25,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     try {
-      await axios.get(`/api/auth/logout`);
+      await axios.get('/api/auth/logout');
       setUser(null);
       verifyAuth();
       toast.success('Logged out successfully');

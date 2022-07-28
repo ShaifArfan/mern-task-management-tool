@@ -16,11 +16,11 @@ function Home() {
 
   const getUserInfo = async () => {
     try {
-      const { data } = await axios.get(`/api/users/me/info`);
+      const { data } = await axios.get('/api/users/me');
       setUserData(data);
     } catch (err) {
       if (err.status === 401) {
-        checkAuth();
+        verifyAuth();
       }
       toast('we got error');
     }

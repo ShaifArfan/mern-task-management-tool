@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import axios from 'axios';
@@ -14,7 +14,7 @@ function EditProfileForm() {
 
   const getUser = async () => {
     try {
-      const { data } = await axios.get(`/api/users/me`);
+      const { data } = await axios.get('/api/users/me');
       setUser(data);
     } catch (err) {
       console.log(err);
@@ -35,7 +35,7 @@ function EditProfileForm() {
   const editProfile = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put(`/api/users/me`, user);
+      const res = await axios.put('/api/users/me', user);
       toast.success('Profile updated successfully');
       setUser(res.data);
     } catch (err) {

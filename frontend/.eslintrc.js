@@ -18,5 +18,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    'no-underscore-dangle': 0,
+    'no-console': 0,
   },
 };
