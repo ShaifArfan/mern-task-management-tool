@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Navigate, Outlet } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { Navigate, Outlet } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
-function PrivateRoutes ({})  {
-  const {auth} = useAuth();
+function PrivateRoutes() {
+  const { auth } = useAuth();
+  console.log({ auth });
 
-  if(auth === undefined) return "loading...";
+  if (auth === undefined) return 'loading...';
 
-  return auth === true ? <Outlet /> : <Navigate to='/auth' />
+  return auth === true ? <Outlet /> : <Navigate to="/auth" />;
 }
 
 export default PrivateRoutes;

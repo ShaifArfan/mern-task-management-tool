@@ -1,5 +1,4 @@
 import Task from '../models/Task.js';
-import User from '../models/User.js';
 import createError from '../utils/createError.js';
 
 export const createTask = async (req, res, next) => {
@@ -10,7 +9,6 @@ export const createTask = async (req, res, next) => {
   });
   try {
     const savedTask = await newTask.save();
-    await User.findByIdAndUpdate(req.user.id, { $push: { tasks: savedTask._id } });
     return res.status(200).json(savedTask);
   } catch (err) {
     return next(err);

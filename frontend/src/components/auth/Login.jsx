@@ -1,34 +1,32 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
 
 import classes from './AuthForm.module.scss';
+import useAuth from '../../hooks/useAuth';
 
 function Login() {
-  const { verifyAuth, auth } = useAuth();
+  const { auth } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (auth) {
       navigate('/');
     }
-  }, [auth]);
+  }, [auth, navigate]);
 
   const login = async (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     try {
-      await axios.post(`/api/auth/login`, {
+      await axios.post('/api/auth/login', {
         email,
         password,
       });
-      await verifyAuth();
       navigate('/');
     } catch (err) {
       console.log(err);
-      verifyAuth();
     }
   };
   return (

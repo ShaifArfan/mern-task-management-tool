@@ -1,14 +1,13 @@
 import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaUserAlt } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
-import AuthContext from '../../context/Auth';
+import { Link, useNavigate } from 'react-router-dom';
 import classes from './Navbar.module.scss';
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
-  const { verifyAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const getUser = async () => {
     try {
@@ -27,8 +26,8 @@ export default function Navbar() {
     try {
       await axios.get('/api/auth/logout');
       setUser(null);
-      verifyAuth();
       toast.success('Logged out successfully');
+      navigate('/auth');
     } catch (err) {
       console.log(err);
     }

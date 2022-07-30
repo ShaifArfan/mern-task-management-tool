@@ -10,19 +10,18 @@ function EditProfileForm() {
     name: '',
     email: '',
   });
-  // const { verifyAuth } = useContext(AuthContext);
-
-  const getUser = async () => {
-    try {
-      const { data } = await axios.get('/api/users/me');
-      setUser(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   useEffect(() => {
-    getUser();
+    (
+      async () => {
+        try {
+          const { data } = await axios.get('/api/users/me');
+          setUser(data);
+        } catch (err) {
+          console.log(err);
+        }
+      }
+    )();
   }, []);
 
   const updateUserInfo = (e) => {
