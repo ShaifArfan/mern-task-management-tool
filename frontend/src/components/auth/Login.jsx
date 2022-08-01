@@ -1,19 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import classes from './AuthForm.module.scss';
-import useAuth from '../../hooks/useAuth';
 
 function Login() {
-  const { auth } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (auth) {
-      navigate('/');
-    }
-  }, [auth, navigate]);
 
   const login = async (e) => {
     e.preventDefault();

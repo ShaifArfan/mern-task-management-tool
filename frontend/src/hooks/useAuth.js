@@ -1,10 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export default () => {
   const [auth, setAuth] = useState();
-  const navigate = useNavigate();
 
   const verifyAuth = async () => {
     try {
@@ -21,12 +19,9 @@ export default () => {
       async () => {
         const data = await verifyAuth();
         setAuth(data);
-        if (!data) {
-          navigate('/auth');
-        }
       }
     )();
-  }, [navigate]);
+  }, []);
 
   return { auth };
 };

@@ -1,13 +1,13 @@
-import React from 'react'
-import Layout from '../components/Layout'
-import EditProfileForm from '../components/profile/EditProfileForm'
+import React from 'react';
+import Layout from '../components/Layout';
+import EditProfileForm from '../components/profile/EditProfileForm';
 
 function EditProfile() {
   return (
     <Layout>
-      <EditProfileForm></EditProfileForm>
+      <EditProfileForm />
     </Layout>
-  )
+  );
 }
 
-export default EditProfile
+export default EditProfile;

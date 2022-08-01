@@ -31,7 +31,7 @@ function EditProfileForm() {
     });
   };
 
-  const editProfile = async (e) => {
+  const updateProfile = async (e) => {
     e.preventDefault();
     try {
       const res = await axios.put('/api/users/me', user);
@@ -50,7 +50,7 @@ function EditProfileForm() {
       </Link>
       <div>
         <h1>Edit Profile</h1>
-        <form className={classes.editForm} onSubmit={editProfile}>
+        <form className={classes.editForm} onSubmit={updateProfile}>
           <label htmlFor="name">
             Full Name:
             <input
