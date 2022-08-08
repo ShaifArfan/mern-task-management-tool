@@ -1,6 +1,6 @@
 ## MERN stack project for beginners
 
-**youtube tutorial source: [https://github.com/ShaifArfan/task-management-tool-tut/tree/youtube-tutorial](https://github.com/ShaifArfan/task-management-tool-tut/tree/youtube-tutorial)**
+**youtube tutorial source: [https://github.com/ShaifArfan/mern-task-management-tool/tree/youtube-tutorial](https://github.com/ShaifArfan/mern-task-management-tool/tree/youtube-tutorial)**
 
 **Made with ❤️ by [Shaif Arfan][arfan-ig]**
 .
