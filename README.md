@@ -1,6 +1,6 @@
 ## mern stack project for beginners
 
-**Youtube Tutorial: [coming soon][yt-link]**
+**Youtube Tutorial: [https://youtu.be/7s7RHc_8SaU][yt-link]**
 
 **Made with ❤️ by [Shaif Arfan][arfan-ig]**
 .
@@ -41,7 +41,7 @@ if you don't have basic knowledge of express, then you can watch these videos [s
 
 ## Getting Started
 
-You can follow our complete youtube tutorial [coming soon][yt-link]
+You can follow our complete youtube tutorial [https://youtu.be/7s7RHc_8SaU][yt-link]
 
 ## Other projects
 
@@ -57,7 +57,7 @@ For support, join our [Community Group][wc-fb-group].
 
 Happy Coding! ✨🚀
 
-[yt-link]: https://youtube.com/WebCifarOfficial
+[yt-link]: https://youtu.be/7s7RHc_8SaU
 [arfan-ig]: http://instagram.com/shaifarfan08
 [wc-ig]: http://instagram.com/web_cifar
 [wc-projects]: https://github.com/ShaifArfan/wc-project-tutorials
